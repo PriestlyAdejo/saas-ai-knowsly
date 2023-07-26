@@ -6,6 +6,9 @@ Welcome to Knowsly, a state-of-the-art AI SaaS platform equipped with five power
 
 In this tutorial, we'll take you on a comprehensive journey of building Knowsly, a revolutionary AI SaaS platform. Leveraging the latest web development technologies such as React, Tailwind CSS, Prisma, MySQL, Clerk, and more, we'll create a seamless user experience with top-notch functionalities.
 
+## Deployment
+Knowsly is deployed and accessible at: [Knowsly](https://saas-ai-knowsly.vercel.app/)
+
 ## Next.js 13 App Router
 
 Knowsly harnesses the power of Next.js 13 App Router, a groundbreaking addition to the Next.js framework. This feature empowers developers to design intricate client-side routing with ease, enhancing the overall efficiency of the platform.
@@ -36,10 +39,10 @@ To run Knowsly locally, follow these steps:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/saas-ai-knowsly.git
+git clone https://github.com/your-username/knowsly.git
 
 # Navigate to the project directory
-cd saas-ai-knowsly
+cd knowsly
 
 # Install dependencies
 npm install
