@@ -22,9 +22,11 @@ import { Select, SelectItem, SelectTrigger } from '@/components/ui/select';
 import { SelectContent, SelectValue } from '@radix-ui/react-select';
 import { Card, CardFooter } from '@/components/ui/card';
 import Image from 'next/image';
+import { useProModal } from '@/hooks/usepromodal';
 
 const ImagePage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [images, setImages] = useState<string[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,10 +47,10 @@ const ImagePage = () => {
 
       setImages(urls);
       form.reset();
-    } catch (err) {
-      // Trigger Pro Upsell on exhausted credits
-      console.log(err);
-      setIsError(true);
+    } catch (err: any) {
+      if (err?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

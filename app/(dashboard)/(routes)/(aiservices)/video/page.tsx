@@ -15,9 +15,11 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import Empty from '@/components/ui/empty';
 import Loader from '@/components/loader';
+import { useProModal } from '@/hooks/usepromodal';
 
 const VideoPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [isError, setIsError] = useState<boolean>(false);
   const [video, setVideo] = useState<string>();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -34,10 +36,10 @@ const VideoPage = () => {
       const response = await axios.post('api/video', values);
       setVideo(response.data[0]);
       form.reset();
-    } catch (err) {
-      // Trigger Pro Upsell on exhausted credits
-      console.log(err);
-      setIsError(true);
+    } catch (err: any) {
+      if (err?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

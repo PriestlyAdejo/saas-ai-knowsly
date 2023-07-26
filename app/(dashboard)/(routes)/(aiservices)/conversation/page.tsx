@@ -19,9 +19,11 @@ import Loader from '@/components/loader';
 import { cn } from '@/lib/utils';
 import UserAvatar from '@/components/useravatar';
 import BotAvatar from '@/components/botavatar';
+import { useProModal } from '@/hooks/usepromodal';
 
 const ConversationPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [isError, setIsError] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,10 +49,10 @@ const ConversationPage = () => {
       setMessages((current) => [...current, userMessage, response.data]);
 
       form.reset();
-    } catch (err) {
-      // Trigger Pro Upsell on exhausted credits
-      console.log(err);
-      setIsError(true);
+    } catch (err: any) {
+      if (err?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }

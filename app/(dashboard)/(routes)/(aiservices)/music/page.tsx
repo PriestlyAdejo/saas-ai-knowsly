@@ -16,9 +16,11 @@ import { useRouter } from 'next/navigation';
 import { ChatCompletionRequestMessage } from 'openai';
 import Empty from '@/components/ui/empty';
 import Loader from '@/components/loader';
+import { useProModal } from '@/hooks/usepromodal';
 
 const MusicPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [isError, setIsError] = useState<boolean>(false);
   const [music, setMusic] = useState<string>();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,10 +39,10 @@ const MusicPage = () => {
       setMusic(response.data.audio);
       console.log('music:', music);
       form.reset();
-    } catch (err) {
-      // Trigger Pro Upsell on exhausted credits
-      console.log(err);
-      setIsError(true);
+    } catch (err: any) {
+      if (err?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
