@@ -67,7 +67,7 @@ const VideoPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="Photo-reaistic horse braiding donald trump's hair"
+                        placeholder="Photo-realistic horse braiding donald trump's hair"
                         {...field}
                       />
                     </FormControl>
