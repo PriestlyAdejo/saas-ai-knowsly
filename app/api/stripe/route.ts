@@ -17,9 +17,6 @@ export async function GET() {
       return new NextResponse('Unauthorised', { status: 401 });
     }
 
-    const logUserSubscription = await prismadb.userSubscription;
-    console.log('Checking USER_SUBSCRIPTION', logUserSubscription);
-
     const userSubscription = await prismadb.userSubscription.findUnique({
       where: {
         userId,
