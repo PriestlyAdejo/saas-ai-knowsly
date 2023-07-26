@@ -1,3 +1,4 @@
+import { checkApiLimit, increaseApiLimit } from '@/lib/apilimit';
 import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
@@ -21,6 +22,14 @@ export async function POST(req: Request) {
       return new NextResponse('Prompt is required', { status: 400 });
     }
 
+    const freeTrial = await checkApiLimit();
+
+    if (!freeTrial) {
+      return new NextResponse('Free trial has expired.', {
+        status: 403,
+      });
+    }
+
     const output = await replicate.run(
       'facebookresearch/musicgen:7a76a8258b23fae65c5a22debb8841d1d7e816b75c2f24218cd2bd8573787906',
       {
@@ -30,6 +39,8 @@ export async function POST(req: Request) {
         },
       }
     );
+
+    await increaseApiLimit();
 
     return NextResponse.json(output);
   } catch (err) {
