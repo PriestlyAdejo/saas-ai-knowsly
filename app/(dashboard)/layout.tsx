@@ -4,9 +4,9 @@ import { getApiLimitCount } from '@/lib/apilimit';
 import { checkSubscription } from '@/lib/subscription';
 import React from 'react';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 const DashboardLayout = async ({ children }: Props) => {
   const apiLimitCount = await getApiLimitCount();

@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import * as z from 'zod';
+import type * as z from 'zod';
 import Heading from '@/components/ui/heading';
 import { MessageSquare } from 'lucide-react';
 import React, { useState } from 'react';
@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { ChatCompletionRequestMessage } from 'openai';
+import { type ChatCompletionRequestMessage } from 'openai';
 import Empty from '@/components/ui/empty';
 import Loader from '@/components/loader';
 import { cn } from '@/lib/utils';

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React from 'react';
 
-type Props = {};
+interface Props {}
 
 const LandingPage = (props: Props) => {
   return (

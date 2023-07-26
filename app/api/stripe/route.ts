@@ -13,7 +13,7 @@ export async function GET() {
     const { userId } = auth();
     const user = await currentUser();
 
-    if (!userId || !user) {
+    if (!userId || user == null) {
       return new NextResponse('Unauthorised', { status: 401 });
     }
 
@@ -23,7 +23,7 @@ export async function GET() {
       },
     });
 
-    if (userSubscription && userSubscription.stripeCustomerId) {
+    if (userSubscription != null && userSubscription.stripeCustomerId) {
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: userSubscription.stripeCustomerId,
         return_url: settingsUrl,

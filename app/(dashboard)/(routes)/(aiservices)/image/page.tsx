@@ -1,7 +1,7 @@
 'use client';
 
 import axios from 'axios';
-import * as z from 'zod';
+import type * as z from 'zod';
 import Heading from '@/components/ui/heading';
 import { Download, ImageIcon, MessageSquare } from 'lucide-react';
 import React, { useState } from 'react';
